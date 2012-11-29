@@ -10,12 +10,12 @@
   </head>
   <body class="container">
     <header class="row">
-      <h1 class="offset1">Learn HEX Math</h1>
+      <h1 class="offset1">Learn HEX Math &mdash; Addition</h1>
     </header>
 
     <div ng-controller="LearningController">
-      <div class="row">
-        <div class="offset1 span1">
+      <div id="controls" class="row">
+        <div class="offset1 span2">
           <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
           <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
         </div>
@@ -23,8 +23,8 @@
           <button ng-show="timeTicks" ng-click="end()">Finished!</button>
         </div>
 
-        <div class="offset6 span1" ng-show="graded">{{gradePercent}}%</div>
-        <div class="span1" ng-show="graded">{{grade}}</div>
+        <div id="gradePercent" class="offset5 span1" ng-show="graded">{{gradePercent}}%</div>
+        <div id="grade" class="span1" ng-show="graded">{{grade}}</div>
       </div>
 
       <div class="problems">
@@ -43,11 +43,13 @@
       </div>
     </div>
 
-    <footer>
-      Learn HEX Math is written by <a href="http://robert.sesek.com">Robert Sesek</a>. I wrote
-      it when learning X86 assembly and was finding that my inexperience with hexadecimal math
-      was slowing me down. I remember in early elementary school, our teachers made us do math
-      tables for time, and so I decided to recreate that experience online for doing HEX math.
-    </footer>
+    <div class="row">
+      <footer class="offset1 span10">
+        Learn HEX Math is written by <a href="http://robert.sesek.com">Robert Sesek</a>. I wrote
+        it when learning X86 assembly and was finding that my inexperience with hexadecimal math
+        was slowing me down. I remember in early elementary school, our teachers made us do math
+        tables for time, and so I decided to recreate that experience online for doing HEX math.
+      </footer>
+    </div>
   </body>
 </html>

@@ -15,6 +15,27 @@
  * limitations under the License.
  */
 
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#controls {
+  margin-bottom: 12pt;
+  font-size: 24pt;
+}
+
+#controls button {
+  font-size: 16pt;
+  line-height: 24pt;
+}
+
+#controls #grade,
+#controls #gradePercent {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
 .problems .row {
   margin-bottom: 12pt;
 }
