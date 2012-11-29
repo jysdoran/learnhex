@@ -16,7 +16,7 @@
  */
 
 /** @const {integer} The number of rows on the board. */
-var NUM_ROWS = 10;
+var NUM_ROWS = 4;
 /** @const {integer} The number of columns on the board. */
 var NUM_COLS = 10;
 
@@ -103,7 +103,7 @@ function LearningController($scope, $window) {
     var rowMin = 3;
     for (var i = 1; i <= NUM_ROWS; ++i) {
       var row = [];
-      var rowMax = (256 / NUM_ROWS) * i;
+      var rowMax = (i == 1) ? 32 : (256 / NUM_ROWS) * i;
       for (var j = 1; j <= NUM_COLS; ++j) {
         // Compute the result of adding the two factors.
         var bigNum = Math.min(256, rowMin + (rowMax - rowMin * Math.random()));
