@@ -8,38 +8,36 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/common.css"/>
   </head>
-  <body class="container">
+  <body class="container" ng-controller="LearningController">
     <header class="row">
-      <h1 class="offset1">Learn HEX Math &mdash; Addition</h1>
+      <h1 class="offset1">Learn HEX Math &mdash; {{operator.name}}</h1>
     </header>
 
-    <div ng-controller="LearningController">
-      <div id="controls" class="row">
-        <div class="offset1 span2">
-          <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
-          <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
-        </div>
-        <div class="span1">
-          <button ng-show="timeTicks" ng-click="end()">Finished!</button>
-        </div>
-
-        <div id="gradePercent" class="offset5 span1" ng-show="graded">{{gradePercent}}%</div>
-        <div id="grade" class="span1" ng-show="graded">{{grade}}</div>
+    <div id="controls" class="row">
+      <div class="offset1 span2">
+        <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
+        <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
+      </div>
+      <div class="span1">
+        <button ng-show="timeTicks" ng-click="end()">Finished!</button>
       </div>
 
-      <div class="problems">
-        <div class="row" ng-repeat="row in rows">
-          <div class="span1"></div>
-          <div class="problem span1" ng-repeat="problem in row" ng-class="problem.answerClass">
-            <span class="facA">0x{{problem.facA.toString(16)}}</span>
-            <span class="op">{{problem.op.sign}}</span>
-            <span class="facB">0x{{problem.facB.toString(16)}}</span>
-            <div class="answer">
-              <input type="text" ng-model="problem.userAnswer"/>
-            </div>
+      <div id="gradePercent" class="offset5 span1" ng-show="graded">{{gradePercent}}%</div>
+      <div id="grade" class="span1" ng-show="graded">{{grade}}</div>
+    </div>
+
+    <div class="problems">
+      <div class="row" ng-repeat="row in rows">
+        <div class="span1"></div>
+        <div class="problem span1" ng-repeat="problem in row" ng-class="problem.answerClass">
+          <span class="facA">0x{{problem.facA.toString(16)}}</span>
+          <span class="op">{{problem.op.sign}}</span>
+          <span class="facB">0x{{problem.facB.toString(16)}}</span>
+          <div class="answer">
+            <input type="text" ng-model="problem.userAnswer"/>
           </div>
-          <div class="span1"></div>
         </div>
+        <div class="span1"></div>
       </div>
     </div>
 
