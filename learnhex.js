@@ -76,16 +76,17 @@ function LearningController($scope, $window) {
   $scope.operator = Operators.Addition;
 
   $scope.rows = [];
+  var rowMin = 3;
   for (var i = 1; i <= NUM_ROWS; ++i) {
     var row = [];
-    var rowMin = (256 / NUM_ROWS) * i;
+    var rowMax = (256 / NUM_ROWS) * i;
     for (var j = 1; j <= NUM_COLS; ++j) {
       // Compute the result of adding the two factors.
-      var bigNum = Math.min(256, rowMin + (Math.random() * rowMin));
+      var bigNum = Math.min(256, rowMin + (rowMax - rowMin * Math.random()));
       bigNum = Math.max(2, Math.floor(bigNum));
 
       // Devise two factors randomly from the result.
-      var fac1 = rowMin/3;
+      var fac1 = rowMax/3;
       fac1 = Math.floor(fac1 + (Math.random() * fac1));
       fac1 = Math.max(j, fac1);
       var fac2 = bigNum - fac1;
@@ -103,6 +104,7 @@ function LearningController($scope, $window) {
       row.push(problem);
     }
     $scope.rows.push(row);
+    rowMin = rowMax;
   }
 
   $scope.graded = false;
