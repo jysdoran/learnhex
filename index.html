@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="learnHexMath">
   <head>
     <meta charset="utf-8"/>
     <title>Learn HEX Math</title>
@@ -21,7 +21,7 @@
           <span class="op">{{problem.op.sign}}</span>
           <span class="facB">0x{{problem.facB.toString(16)}}</span>
           <div class="answer">
-            <input type="text" ng-model="problem.userAnswer"/>
+            <input type="text" ng-model="problem.userAnswer" ng-blur="checkAnswer(problem)"/>
           </div>
         </div>
         <div class="span1"></div>
