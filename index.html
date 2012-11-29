@@ -16,11 +16,12 @@
     <div ng-controller="LearningController">
       <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
       <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
+      <button ng-show="timeTicks" ng-click="end()">Finished!</button>
 
       <div class="problems">
         <div class="row" ng-repeat="row in rows">
           <div class="span1"></div>
-          <div class="problem span1" ng-repeat="problem in row" ng-class="problem.checkAnswerClass()">
+          <div class="problem span1" ng-repeat="problem in row" ng-class="problem.answerClass">
             <span class="facA">0x{{problem.facA.toString(16)}}</span>
             <span class="op">{{problem.op.sign}}</span>
             <span class="facB">0x{{problem.facB.toString(16)}}</span>

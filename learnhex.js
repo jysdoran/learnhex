@@ -34,18 +34,13 @@ var Operators = {
 function Problem(facA, facB, op) {
   this.facA = facA;
   this.facB = facB;
-  this.userAnswer = null;
   this.op = op;
+  this.userAnswer = null;
+  this.answerClass = null;
 }
 
 Problem.prototype.answer = function() {
   return this.op.func(this.facA, this.facB);
-};
-
-Problem.prototype.checkAnswerClass = function() {
-  if (this.userAnswer == null)
-    return '';
-  return this.answer() == parseInt(this.userAnswer, 16) ? 'correct' : 'incorrect';
 };
 
 function LearningController($scope, $window) {
@@ -56,6 +51,10 @@ function LearningController($scope, $window) {
     $scope._intervalId = $window.setInterval(function() {
       $scope.$apply('timeTicks = timeTicks + 1');
     }, 1);
+  };
+  $scope.end = function() {
+    $window.clearInterval($scope._intervalId);
+    $scope.checkAllAnswers();
   };
 
   var timeInSeconds = 100;
@@ -85,4 +84,15 @@ function LearningController($scope, $window) {
     }
     $scope.rows.push(row);
   }
+
+  $scope.checkAllAnswers = function() {
+    for (var i = 0; i < $scope.rows.length; ++i) {
+      for (var j = 0; j < $scope.rows[i].length; ++j) {
+        var problem = $scope.rows[i][j];
+        problem.answerClass =
+            problem.answer() == parseInt(problem.userAnswer, 16) ? 'correct'
+                                                                 : 'incorrect';
+      }
+    };
+  };
 }
