@@ -76,7 +76,7 @@ function LearningController($scope, $window) {
   $scope.graded = false;
 
   /** @var {Operator} The operator for this gameplay. */
-  $scope.operator = Operators.Addition;
+  $scope.operator = null;
 
   /** @var {integer} A counter increased every millisecond to time the gameplay. */
   $scope.timeTicks = null;
@@ -91,28 +91,39 @@ function LearningController($scope, $window) {
    *                                 of Problems. */
   $scope.rows = [];
 
-  // Construct the game board.
-  var rowMin = 3;
-  for (var i = 1; i <= NUM_ROWS; ++i) {
-    var row = [];
-    var rowMax = (256 / NUM_ROWS) * i;
-    for (var j = 1; j <= NUM_COLS; ++j) {
-      // Compute the result of adding the two factors.
-      var bigNum = Math.min(256, rowMin + (rowMax - rowMin * Math.random()));
-      bigNum = Math.max(2, Math.floor(bigNum));
+  /**
+   * Changes the board type to the one specified by the operator.
+   * @param {string} Operator name.
+   */
+  $scope.changeBoard = function(op) {
+    $scope.operator = Operators[op];
+    $scope.rows = [];
 
-      // Devise two factors randomly from the result.
-      var fac1 = rowMax/3;
-      fac1 = Math.floor(fac1 + (Math.random() * fac1));
-      fac1 = Math.max(j, fac1);
-      var fac2 = bigNum - fac1;
+    // Construct the game board.
+    var rowMin = 3;
+    for (var i = 1; i <= NUM_ROWS; ++i) {
+      var row = [];
+      var rowMax = (256 / NUM_ROWS) * i;
+      for (var j = 1; j <= NUM_COLS; ++j) {
+        // Compute the result of adding the two factors.
+        var bigNum = Math.min(256, rowMin + (rowMax - rowMin * Math.random()));
+        bigNum = Math.max(2, Math.floor(bigNum));
 
-      var problem = new Problem(fac1, fac2, $scope.operator);
-      row.push(problem);
+        // Devise two factors randomly from the result.
+        var fac1 = rowMax/3;
+        fac1 = Math.floor(fac1 + (Math.random() * fac1));
+        fac1 = Math.max(j, fac1);
+        var fac2 = bigNum - fac1;
+
+        var problem = new Problem(fac1, fac2, $scope.operator);
+        row.push(problem);
+      }
+      $scope.rows.push(row);
+      rowMin = rowMax;
     }
-    $scope.rows.push(row);
-    rowMin = rowMax;
-  }
+  };
+  // Default to addition.
+  $scope.changeBoard('Addition');
 
   /**
    * Called when the user begins playing the game.

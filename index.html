@@ -27,6 +27,10 @@
 
     <div id="instructions" ng-hide="playing">
       <p>
+        You can choose to either do <a ng-click="changeBoard('Addition')">addition</a>
+        or <a ng-click="changeBoard('Subtraction')">subtraction</a>.
+      </p>
+      <p>
         You will be given 100 hexadecimal {{operator.name | lowercase}} to perform. The
         problems will increase in difficulty as you go through the rows. Once you start
         the game, a timer will start counting. When you're done, click
