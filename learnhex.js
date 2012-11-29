@@ -18,17 +18,6 @@
 var NUM_ROWS = 25;
 var NUM_COLS = 10;
 
-angular.module('learnHexMath', ['domEventsExtensions']);
-
-angular.module('domEventsExtensions', [])
-  .directive('ngBlur', function() {
-    return function(scope, element, attrs) {
-      element.bind('blur', function() {
-        scope.$eval(attrs.ngBlur);
-      });
-    };
-  });
-
 var Operators = {
   Addition: {
               name: "Addition",
@@ -45,7 +34,6 @@ var Operators = {
 function Problem(facA, facB, op) {
   this.facA = facA;
   this.facB = facB;
-  this.answered = false;
   this.userAnswer = null;
   this.op = op;
 }
@@ -55,7 +43,7 @@ Problem.prototype.answer = function() {
 };
 
 Problem.prototype.checkAnswerClass = function() {
-  if (!this.answered || this.userAnswer == null)
+  if (this.userAnswer == null)
     return '';
   return this.answer() == parseInt(this.userAnswer, 16) ? 'correct' : 'incorrect';
 };
@@ -75,9 +63,4 @@ function ProblemsController($scope) {
     }
     $scope.rows.push(row);
   }
-
-  $scope.checkAnswer = function(problem) {
-    problem.answered = problem.userAnswer != null;
-    console.log(problem);
-  };
 }
