@@ -41,6 +41,10 @@ footer {
   text-align: center;
 }
 
+#controls #finished {
+  color: green;
+}
+
 #instructions {
   padding: 40pt 100pt;
   text-align: center;

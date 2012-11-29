@@ -18,7 +18,7 @@
         <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
       </div>
       <div class="span1">
-        <button ng-show="timeTicks" ng-click="end()">Finished!</button>
+        <button id="finished" ng-show="timeTicks" ng-click="end()">Finished!</button>
       </div>
 
       <div id="gradePercent" class="offset5 span1" ng-show="graded">{{gradePercent}}%</div>
