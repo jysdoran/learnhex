@@ -34,11 +34,18 @@ var Operators = {
 function Problem(facA, facB, op) {
   this.facA = facA;
   this.facB = facB;
+  this.userAnswer = null;
   this.op = op;
 }
 
 Problem.prototype.answer = function() {
-  return this.op(this.facA, this.facB);
+  return this.op.func(this.facA, this.facB);
+};
+
+Problem.prototype.checkAnswerClass = function() {
+  if (this.userAnswer == null)
+    return '';
+  return this.answer() == parseInt(this.userAnswer, 16) ? 'correct' : 'incorrect';
 };
 
 function ProblemsController($scope) {

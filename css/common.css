@@ -47,3 +47,11 @@
 .problem .answer input:focus {
   border-color: rgb(63, 98, 239);
 }
+
+.problem.correct {
+  color: green;
+}
+
+.problem.incorrect {
+  color: red;
+}
