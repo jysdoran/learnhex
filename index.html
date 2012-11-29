@@ -17,7 +17,7 @@
       <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
       <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
 
-      <div class="problems" ng-controller="ProblemsController">
+      <div class="problems">
         <div class="row" ng-repeat="row in rows">
           <div class="span1"></div>
           <div class="problem span1" ng-repeat="problem in row" ng-class="problem.checkAnswerClass()">

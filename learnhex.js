@@ -31,6 +31,23 @@ var Operators = {
                }
 };
 
+function Problem(facA, facB, op) {
+  this.facA = facA;
+  this.facB = facB;
+  this.userAnswer = null;
+  this.op = op;
+}
+
+Problem.prototype.answer = function() {
+  return this.op.func(this.facA, this.facB);
+};
+
+Problem.prototype.checkAnswerClass = function() {
+  if (this.userAnswer == null)
+    return '';
+  return this.answer() == parseInt(this.userAnswer, 16) ? 'correct' : 'incorrect';
+};
+
 function LearningController($scope, $window) {
   $scope.timeTicks = null;
 
@@ -53,26 +70,7 @@ function LearningController($scope, $window) {
     var seconds = t / timeInSeconds;
     return hours + ':' + minutes + ':' + seconds;
   };
-}
 
-function Problem(facA, facB, op) {
-  this.facA = facA;
-  this.facB = facB;
-  this.userAnswer = null;
-  this.op = op;
-}
-
-Problem.prototype.answer = function() {
-  return this.op.func(this.facA, this.facB);
-};
-
-Problem.prototype.checkAnswerClass = function() {
-  if (this.userAnswer == null)
-    return '';
-  return this.answer() == parseInt(this.userAnswer, 16) ? 'correct' : 'incorrect';
-};
-
-function ProblemsController($scope) {
   $scope.operator = Operators.Addition;
 
   $scope.rows = [];
