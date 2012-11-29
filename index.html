@@ -13,18 +13,23 @@
       <h1>Learn HEX Math</h1>
     </header>
 
-    <div class="problems" ng-controller="ProblemsController">
-      <div class="row" ng-repeat="row in rows">
-        <div class="span1"></div>
-        <div class="problem span1" ng-repeat="problem in row" ng-class="problem.checkAnswerClass()">
-          <span class="facA">0x{{problem.facA.toString(16)}}</span>
-          <span class="op">{{problem.op.sign}}</span>
-          <span class="facB">0x{{problem.facB.toString(16)}}</span>
-          <div class="answer">
-            <input type="text" ng-model="problem.userAnswer"/>
+    <div ng-controller="LearningController">
+      <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
+      <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
+
+      <div class="problems" ng-controller="ProblemsController">
+        <div class="row" ng-repeat="row in rows">
+          <div class="span1"></div>
+          <div class="problem span1" ng-repeat="problem in row" ng-class="problem.checkAnswerClass()">
+            <span class="facA">0x{{problem.facA.toString(16)}}</span>
+            <span class="op">{{problem.op.sign}}</span>
+            <span class="facB">0x{{problem.facB.toString(16)}}</span>
+            <div class="answer">
+              <input type="text" ng-model="problem.userAnswer"/>
+            </div>
           </div>
+          <div class="span1"></div>
         </div>
-        <div class="span1"></div>
       </div>
     </div>
 

@@ -31,6 +31,30 @@ var Operators = {
                }
 };
 
+function LearningController($scope, $window) {
+  $scope.timeTicks = null;
+
+  $scope.start = function() {
+    $scope.timeTicks = 0;
+    $scope._intervalId = $window.setInterval(function() {
+      $scope.$apply('timeTicks = timeTicks + 1');
+    }, 1);
+  };
+
+  var timeInSeconds = 100;
+  var timeInMinutes = timeInSeconds * 60;
+  var timeInHours = timeInMinutes * 60;
+  $scope.formattedTime = function () {
+    var t = $scope.timeTicks;
+    var hours = Math.floor(t / timeInHours);
+    t -= hours * timeInHours;
+    var minutes = Math.floor(t / timeInMinutes);
+    t -= minutes * timeInMinutes;
+    var seconds = t / timeInSeconds;
+    return hours + ':' + minutes + ':' + seconds;
+  };
+}
+
 function Problem(facA, facB, op) {
   this.facA = facA;
   this.facB = facB;
