@@ -133,7 +133,7 @@ function LearningController($scope, $window) {
     $scope.timeTicks = 0;
     $scope._intervalId = $window.setInterval(function() {
       $scope.$apply('timeTicks = timeTicks + 1');
-    }, 1);
+    }, 1000);
   };
 
   /**
@@ -149,8 +149,7 @@ function LearningController($scope, $window) {
    * Returns a HH:MM:SS string showing for how long the user has been playing.
    * @return string
    */
-  var timeInSeconds = 100;
-  var timeInMinutes = timeInSeconds * 60;
+  var timeInMinutes = 60;
   var timeInHours = timeInMinutes * 60;
   $scope.formattedTime = function () {
     var t = $scope.timeTicks;
@@ -158,8 +157,7 @@ function LearningController($scope, $window) {
     t -= hours * timeInHours;
     var minutes = Math.floor(t / timeInMinutes);
     t -= minutes * timeInMinutes;
-    var seconds = Math.floor(t / timeInSeconds);
-    return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(seconds);
+    return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(t);
   };
 
   /**
