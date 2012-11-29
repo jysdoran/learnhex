@@ -9,14 +9,23 @@
     <link rel="stylesheet" href="css/common.css"/>
   </head>
   <body class="container">
-    <header>
-      <h1>Learn HEX Math</h1>
+    <header class="row">
+      <h1 class="offset1">Learn HEX Math</h1>
     </header>
 
     <div ng-controller="LearningController">
-      <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
-      <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
-      <button ng-show="timeTicks" ng-click="end()">Finished!</button>
+      <div class="row">
+        <div class="offset1 span1">
+          <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
+          <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
+        </div>
+        <div class="span1">
+          <button ng-show="timeTicks" ng-click="end()">Finished!</button>
+        </div>
+
+        <div class="offset6 span1" ng-show="graded">{{gradePercent}}%</div>
+        <div class="span1" ng-show="graded">{{grade}}</div>
+      </div>
 
       <div class="problems">
         <div class="row" ng-repeat="row in rows">

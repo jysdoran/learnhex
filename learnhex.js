@@ -85,14 +85,48 @@ function LearningController($scope, $window) {
     $scope.rows.push(row);
   }
 
+  $scope.graded = false;
   $scope.checkAllAnswers = function() {
+    var numCorrect = 0;
     for (var i = 0; i < $scope.rows.length; ++i) {
       for (var j = 0; j < $scope.rows[i].length; ++j) {
         var problem = $scope.rows[i][j];
-        problem.answerClass =
-            problem.answer() == parseInt(problem.userAnswer, 16) ? 'correct'
-                                                                 : 'incorrect';
+        var correct = problem.answer() == parseInt(problem.userAnswer, 16);
+        problem.answerClass = correct ? 'correct' : 'incorrect';
+        if (correct)
+          ++numCorrect;
       }
     };
+
+    $scope.graded = true;
+    var percent = numCorrect / (NUM_COLS * NUM_ROWS) * 100;
+    $scope.gradePercent = percent;
+    if ($scope.gradePercent == 100) {
+      $scope.grade = 'A+';
+    } else if ($scope.gradePercent >= 95) {
+      $scope.grade = 'A';
+    } else if ($scope.gradePercent > 90) {
+      $scope.grade = 'A-';
+    } else if ($scope.gradePercent >= 87) {
+      $scope.grade = 'B+';
+    } else if ($scope.gradePercent >= 84) {
+      $scope.grade = 'B';
+    } else if ($scope.gradePercent >= 80) {
+      $scope.grade = 'B-';
+    } else if ($scope.gradePercent >= 77) {
+      $scope.grade = 'C+';
+    } else if ($scope.gradePercent >= 74) {
+      $scope.grade = 'C';
+    } else if ($scope.gradePercent >= 70) {
+      $scope.grade = 'C-';
+    } else if ($scope.gradePercent >= 67) {
+      $scope.grade = 'D+';
+    } else if ($scope.gradePercent >= 64) {
+      $scope.grade = 'D';
+    } else if ($scope.gradePercent >= 60) {
+      $scope.grade = 'D-';
+    } else {
+      $scope.grade = 'F';
+    }
   };
 }
