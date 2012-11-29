@@ -44,9 +44,12 @@ Problem.prototype.answer = function() {
 };
 
 function LearningController($scope, $window) {
+  $scope.playing = false;
+
   $scope.timeTicks = null;
 
   $scope.start = function() {
+    $scope.playing = true;
     $scope.timeTicks = 0;
     $scope._intervalId = $window.setInterval(function() {
       $scope.$apply('timeTicks = timeTicks + 1');

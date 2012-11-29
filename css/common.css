@@ -24,9 +24,14 @@ body {
   font-size: 24pt;
 }
 
-#controls button {
+button {
   font-size: 16pt;
   line-height: 24pt;
+}
+
+footer {
+  margin-top: 12pt;
+  font-size: 8pt;
 }
 
 #controls #grade,
@@ -34,6 +39,12 @@ body {
   color: red;
   font-weight: bold;
   text-align: center;
+}
+
+#instructions {
+  padding: 40pt 100pt;
+  text-align: center;
+  height: 100pt;
 }
 
 .problems .row {

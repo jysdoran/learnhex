@@ -15,7 +15,6 @@
 
     <div id="controls" class="row">
       <div class="offset1 span2">
-        <button ng-hide="timeTicks" ng-click="start()">Begin!</button>
         <div id="timer" ng-show="timeTicks">{{formattedTime()}}</div>
       </div>
       <div class="span1">
@@ -26,7 +25,17 @@
       <div id="grade" class="span1" ng-show="graded">{{grade}}</div>
     </div>
 
-    <div class="problems">
+    <div id="instructions" ng-hide="playing">
+      <p>
+        You will be given 100 hexadecimal {{operator.name | lowercase}} to perform. The
+        problems will increase in difficulty as you go through the rows. Once you start
+        the game, a timer will start counting. When you're done, click
+        the &ldquo;Finished&rdquo; button to see your score and grade.
+      </p>
+      <button ng-click="start()">Begin!</button>
+    </div>
+
+    <div class="problems" ng-show="playing">
       <div class="row" ng-repeat="row in rows">
         <div class="span1"></div>
         <div class="problem span1" ng-repeat="problem in row" ng-class="problem.answerClass">
@@ -43,10 +52,11 @@
 
     <div class="row">
       <footer class="offset1 span10">
-        Learn HEX Math is written by <a href="http://robert.sesek.com">Robert Sesek</a>. I wrote
-        it when learning X86 assembly and was finding that my inexperience with hexadecimal math
-        was slowing me down. I remember in early elementary school, our teachers made us do math
-        tables for time, and so I decided to recreate that experience online for doing HEX math.
+        Learn HEX Math was written by <a href="http://robert.sesek.com">Robert Sesek</a>.
+        When learning X86 assembly, I found that my inexperience with hexadecimal math
+        was slowing me down. In early elementary school, our teachers made us do math
+        tables for time, and so I decided to recreate that learning tool online, but with
+        HEX numbers instead of base-ten.
       </footer>
     </div>
   </body>
