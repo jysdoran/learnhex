@@ -31,13 +31,13 @@
         or <a ng-click="changeBoard('Subtraction')">subtraction</a>.
       </p>
       <p>
-        You will be given 100 hexadecimal {{operator.name | lowercase}} to perform. The
-        problems will increase in difficulty as you go through the rows. Once you start
-        the game, a timer will start counting. When you're done, click
-        the &ldquo;Finished&rdquo; button to see your score and grade.
+        You will be given 100 hexadecimal {{operator.name | lowercase}} problems to
+        perform. They will increase in difficulty as you go through the rows. You
+        will be timed. When you're done, click the &ldquo;Finished&rdquo; button
+        to see your score.
       </p>
       <p>
-        You should <strong>answer in hexadecimal</strong>, but you do not need to include
+        <strong>Answer in hexadecimal</strong>, but you do not need to include
         the <code>0x</code> prefix.
       </p>
       <button ng-click="start()">Begin!</button>
