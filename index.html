@@ -15,7 +15,11 @@
     <div class="problems" ng-controller="ProblemsController">
       <div class="row" ng-repeat="row in rows">
         <div class="span1"></div>
-        <div class="span1" ng-repeat="problem in row">{{problem}}</div>
+        <div class="span1" ng-repeat="problem in row">
+          <span class="facA">0x{{problem.facA.toString(16)}}</span>
+          <span class="op">{{problem.op.sign}}</span>
+          <span class="facB">0x{{problem.facB.toString(16)}}</span>
+        </div>
         <div class="span1"></div>
       </div>
     </div>

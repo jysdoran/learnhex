@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var NUM_ROWS = 10;
+var NUM_ROWS = 25;
 var NUM_COLS = 10;
 
 var Operators = {
@@ -31,14 +31,28 @@ var Operators = {
                }
 };
 
+function Problem(facA, facB, op) {
+  this.facA = facA;
+  this.facB = facB;
+  this.op = op;
+}
+
+Problem.prototype.answer = function() {
+  return this.op(this.facA, this.facB);
+};
+
 function ProblemsController($scope) {
   $scope.operator = Operators.Addition;
 
   $scope.rows = [];
-  for (var i = 0; i < NUM_ROWS; ++i) {
+  for (var i = 1; i <= NUM_ROWS; ++i) {
     var row = [];
-    for (var j = 0; j < NUM_COLS; ++j) {
-      row.push($scope.operator.sign + " (" + i + "," + j + ")");
+    for (var j = 1; j <= NUM_COLS; ++j) {
+      var bigNum = Math.floor(i + (i * 16 * Math.random()));
+      var fac1 = Math.floor(Math.random() * (bigNum - 3)) + 1;
+      var fac2 = bigNum - fac1;
+      var problem = new Problem(fac1, fac2, $scope.operator);
+      row.push(problem);
     }
     $scope.rows.push(row);
   }
