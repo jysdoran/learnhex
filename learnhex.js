@@ -69,8 +69,8 @@ function LearningController($scope, $window) {
     t -= hours * timeInHours;
     var minutes = Math.floor(t / timeInMinutes);
     t -= minutes * timeInMinutes;
-    var seconds = t / timeInSeconds;
-    return hours + ':' + minutes + ':' + seconds;
+    var seconds = Math.floor(t / timeInSeconds);
+    return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(seconds);
   };
 
   $scope.operator = Operators.Addition;
@@ -151,4 +151,11 @@ function LearningController($scope, $window) {
       $scope.grade = 'F';
     }
   };
+}
+
+function formatInt2d(n) {
+  if (n < 10) {
+    return '0' + n;
+  }
+  return n;
 }
