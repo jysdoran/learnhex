@@ -48,8 +48,8 @@ function ProblemsController($scope) {
   for (var i = 1; i <= NUM_ROWS; ++i) {
     var row = [];
     for (var j = 1; j <= NUM_COLS; ++j) {
-      var bigNum = Math.floor(i + (i * 16 * Math.random()));
-      var fac1 = Math.floor(Math.random() * (bigNum - 3)) + 1;
+      var bigNum = Math.min(Math.floor(i + (i * 16 * Math.random())), 255);
+      var fac1 = Math.max(Math.floor(Math.random() * (bigNum - 1)), 1);
       var fac2 = bigNum - fac1;
       var problem = new Problem(fac1, fac2, $scope.operator);
       row.push(problem);
