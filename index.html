@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Learn HEX Math</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script type="text/javascript" src="learnhex.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  </head>
+  <body class="container">
+    <header>
+      <h1>Learn HEX Math</h1>
+    </header>
+
+    <div class="problems" ng-controller="ProblemsController">
+      <div class="row" ng-repeat="row in rows">
+        <div class="span1"></div>
+        <div class="span1" ng-repeat="problem in row">{{problem}}</div>
+        <div class="span1"></div>
+      </div>
+    </div>
+
+    <footer>
+      Learn HEX Math is written by <a href="http://robert.sesek.com">Robert Sesek</a>. I wrote
+      it when learning X86 assembly and was finding that my inexperience with hexadecimal math
+      was slowing me down. I remember in early elementary school, our teachers made us do math
+      tables for time, and so I decided to recreate that experience online for doing HEX math.
+    </footer>
+  </body>
+</html>
