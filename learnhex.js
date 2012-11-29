@@ -122,7 +122,7 @@ function LearningController($scope, $window) {
 
     $scope.graded = true;
     var percent = numCorrect / (NUM_COLS * NUM_ROWS) * 100;
-    $scope.gradePercent = percent;
+    $scope.gradePercent = Math.floor(percent);
     if ($scope.gradePercent == 100) {
       $scope.grade = 'A+';
     } else if ($scope.gradePercent >= 95) {
