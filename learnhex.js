@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var NUM_ROWS = 25;
+var NUM_ROWS = 10;
 var NUM_COLS = 10;
 
 var Operators = {
@@ -75,9 +75,12 @@ function LearningController($scope, $window) {
   $scope.rows = [];
   for (var i = 1; i <= NUM_ROWS; ++i) {
     var row = [];
+    var rowFactor = (256 / NUM_ROWS) * i;
     for (var j = 1; j <= NUM_COLS; ++j) {
-      var bigNum = Math.min(Math.floor(i + (i * 16 * Math.random())), 255);
-      var fac1 = Math.max(Math.floor(Math.random() * (bigNum - 1)), 1);
+      var bigNum = Math.min(255, Math.floor(Math.random() * rowFactor));
+      bigNum = Math.max(2, bigNum);
+      var fac1 = Math.max(Math.random() * (bigNum - 1), bigNum / (i+1));
+      fac1 = Math.floor(Math.min(i*j, fac1));
       var fac2 = bigNum - fac1;
       var problem = new Problem(fac1, fac2, $scope.operator);
       row.push(problem);
