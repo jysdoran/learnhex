@@ -18,12 +18,27 @@
 var NUM_ROWS = 10;
 var NUM_COLS = 10;
 
+var Operators = {
+  Addition: {
+              name: "Addition",
+              sign: "+",
+              func: function(a, b) { return a + b; }
+            },
+  Subtraction: {
+                 name: "Subtraction",
+                 sign: "\u2212",
+                 func: function(a, b) { return a - b; }
+               }
+};
+
 function ProblemsController($scope) {
+  $scope.operator = Operators.Addition;
+
   $scope.rows = [];
   for (var i = 0; i < NUM_ROWS; ++i) {
     var row = [];
     for (var j = 0; j < NUM_COLS; ++j) {
-      row.push("hello (" + i + "," + j + ")");
+      row.push($scope.operator.sign + " (" + i + "," + j + ")");
     }
     $scope.rows.push(row);
   }
