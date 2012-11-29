@@ -15,9 +15,14 @@
  * limitations under the License.
  */
 
+/** @const {integer} The number of rows on the board. */
 var NUM_ROWS = 10;
+/** @const {integer} The number of columns on the board. */
 var NUM_COLS = 10;
 
+/**
+ * The game types/mathematical operations that can be played.
+ */
 var Operators = {
   Addition: {
               name: "Addition",
@@ -31,51 +36,62 @@ var Operators = {
                }
 };
 
+/**
+ * A Problem is a pair of factors and an operation that can compute the right
+ * answer for them. It records the user's answer for comparision.
+ */
 function Problem(facA, facB, op) {
+  /** @var {integer} The first factor. This is always larger than {@see facB}. */
   this.facA = facA;
+  /** @var {integer} The second factor. This is always smaller than {@see facA}. */
   this.facB = facB;
+
+  /** @var {Operation} The operation by which the factors will be evaluated. */
   this.op = op;
+
+  /** @var {string} The answer that the user gave. */
   this.userAnswer = null;
+
+  /** @var {string} The CSS class to apply to the problem's UI. */
   this.answerClass = null;
 }
 
+/**
+ * Computes the result of the operation on the two factors.
+ * @return {integer}
+ */
 Problem.prototype.answer = function() {
   return this.op.func(this.facA, this.facB);
 };
 
+/**
+ * LearningController manages the creation and evaluation of the game board.
+ */
 function LearningController($scope, $window) {
+  /** @var {boolean} Whether the game has been begun with the user playing. */
   $scope.playing = false;
 
-  $scope.timeTicks = null;
+  /** @var {boolean} Whether the user finished playing and the answers have
+   *                 been graded. */
+  $scope.graded = false;
 
-  $scope.start = function() {
-    $scope.playing = true;
-    $scope.timeTicks = 0;
-    $scope._intervalId = $window.setInterval(function() {
-      $scope.$apply('timeTicks = timeTicks + 1');
-    }, 1);
-  };
-  $scope.end = function() {
-    $window.clearInterval($scope._intervalId);
-    $scope.checkAllAnswers();
-  };
-
-  var timeInSeconds = 100;
-  var timeInMinutes = timeInSeconds * 60;
-  var timeInHours = timeInMinutes * 60;
-  $scope.formattedTime = function () {
-    var t = $scope.timeTicks;
-    var hours = Math.floor(t / timeInHours);
-    t -= hours * timeInHours;
-    var minutes = Math.floor(t / timeInMinutes);
-    t -= minutes * timeInMinutes;
-    var seconds = Math.floor(t / timeInSeconds);
-    return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(seconds);
-  };
-
+  /** @var {Operator} The operator for this gameplay. */
   $scope.operator = Operators.Addition;
 
+  /** @var {integer} A counter increased every millisecond to time the gameplay. */
+  $scope.timeTicks = null;
+
+  /**
+   * @var {*} The token returned from setInterval().
+   * @private
+   */
+  $scope._intervalId = null;
+
+  /** @var {Array.<Array.<Problem>>} The game board matrix containing the set
+   *                                 of Problems. */
   $scope.rows = [];
+
+  // Construct the game board.
   var rowMin = 3;
   for (var i = 1; i <= NUM_ROWS; ++i) {
     var row = [];
@@ -91,6 +107,7 @@ function LearningController($scope, $window) {
       fac1 = Math.max(j, fac1);
       var fac2 = bigNum - fac1;
 
+      // A must always be greater than B.
       var facA, facB;
       if (fac1 > fac2) {
         facA = fac1;
@@ -107,7 +124,48 @@ function LearningController($scope, $window) {
     rowMin = rowMax;
   }
 
-  $scope.graded = false;
+  /**
+   * Called when the user begins playing the game.
+   */
+  $scope.start = function() {
+    $scope.playing = true;
+    $scope.timeTicks = 0;
+    $scope._intervalId = $window.setInterval(function() {
+      $scope.$apply('timeTicks = timeTicks + 1');
+    }, 1);
+  };
+
+  /**
+   * Called when the user stops playing the game and should have the answers
+   * evaluated.
+   */
+  $scope.end = function() {
+    $window.clearInterval($scope._intervalId);
+    $scope.checkAllAnswers();
+  };
+
+  /**
+   * Returns a HH:MM:SS string showing for how long the user has been playing.
+   * @return string
+   */
+  var timeInSeconds = 100;
+  var timeInMinutes = timeInSeconds * 60;
+  var timeInHours = timeInMinutes * 60;
+  $scope.formattedTime = function () {
+    var t = $scope.timeTicks;
+    var hours = Math.floor(t / timeInHours);
+    t -= hours * timeInHours;
+    var minutes = Math.floor(t / timeInMinutes);
+    t -= minutes * timeInMinutes;
+    var seconds = Math.floor(t / timeInSeconds);
+    return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(seconds);
+  };
+
+  /**
+   * Evaluates the game board and marks each Problem as correct or incorrect.
+   * It then calculates the percentage correct and issues a letter grade, just
+   * like in elementary school.
+   */
   $scope.checkAllAnswers = function() {
     var numCorrect = 0;
     for (var i = 0; i < $scope.rows.length; ++i) {
@@ -123,6 +181,8 @@ function LearningController($scope, $window) {
     $scope.graded = true;
     var percent = numCorrect / (NUM_COLS * NUM_ROWS) * 100;
     $scope.gradePercent = Math.floor(percent);
+
+    // Convert the percent to a letter grade, just because...
     if ($scope.gradePercent == 100) {
       $scope.grade = 'A+';
     } else if ($scope.gradePercent >= 95) {
@@ -153,6 +213,12 @@ function LearningController($scope, $window) {
   };
 }
 
+/**
+ * Formats an integer to have a leading 0 if it is less than 10. JavaScript is
+ * stupid because it doesn't have fmt.Printf("%2d", N).
+ * @param {integer} The number to format
+ * @return {string}
+ */
 function formatInt2d(n) {
   if (n < 10) {
     return '0' + n;
