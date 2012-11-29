@@ -40,11 +40,11 @@ var Operators = {
  * A Problem is a pair of factors and an operation that can compute the right
  * answer for them. It records the user's answer for comparision.
  */
-function Problem(facA, facB, op) {
+function Problem(fac1, fac2, op) {
   /** @var {integer} The first factor. This is always larger than {@see facB}. */
-  this.facA = facA;
+  this.facA = (fac1 > fac2) ? fac1 : fac2;
   /** @var {integer} The second factor. This is always smaller than {@see facA}. */
-  this.facB = facB;
+  this.facB = (fac1 > fac2) ? fac2 : fac1;
 
   /** @var {Operation} The operation by which the factors will be evaluated. */
   this.op = op;
@@ -107,17 +107,7 @@ function LearningController($scope, $window) {
       fac1 = Math.max(j, fac1);
       var fac2 = bigNum - fac1;
 
-      // A must always be greater than B.
-      var facA, facB;
-      if (fac1 > fac2) {
-        facA = fac1;
-        facB = fac2;
-      } else {
-        facA = fac2;
-        facB = fac1;
-      }
-
-      var problem = new Problem(facA, facB, $scope.operator);
+      var problem = new Problem(fac1, fac2, $scope.operator);
       row.push(problem);
     }
     $scope.rows.push(row);
