@@ -86,7 +86,17 @@ function LearningController($scope, $window) {
       fac1 = Math.floor(fac1 + (Math.random() * fac1));
       fac1 = Math.max(j, fac1);
       var fac2 = bigNum - fac1;
-      var problem = new Problem(fac1, fac2, $scope.operator);
+
+      var facA, facB;
+      if (fac1 > fac2) {
+        facA = fac1;
+        facB = fac2;
+      } else {
+        facA = fac2;
+        facB = fac1;
+      }
+
+      var problem = new Problem(facA, facB, $scope.operator);
       row.push(problem);
     }
     $scope.rows.push(row);
