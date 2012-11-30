@@ -106,7 +106,7 @@ function LearningController($scope, $window) {
       var rowMax = (i == 1) ? 32 : (256 / NUM_ROWS) * i;
       for (var j = 1; j <= NUM_COLS; ++j) {
         // Compute the result of adding the two factors.
-        var bigNum = Math.min(256, rowMin + (rowMax - rowMin * Math.random()));
+        var bigNum = Math.min(255, rowMin + (rowMax - rowMin * Math.random()));
         bigNum = Math.max(2, Math.floor(bigNum));
 
         // Devise two factors randomly from the result.
