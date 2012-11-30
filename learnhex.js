@@ -161,6 +161,14 @@ function LearningController($scope, $window) {
   };
 
   /**
+   * Returns the size of the game board.
+   * @returns {integer}
+   */
+  $scope.boardSize = function() {
+    return NUM_ROWS * NUM_COLS;
+  };
+
+  /**
    * Evaluates the game board and marks each Problem as correct or incorrect.
    * It then calculates the percentage correct and issues a letter grade, just
    * like in elementary school.
