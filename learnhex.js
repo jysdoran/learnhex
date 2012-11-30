@@ -100,26 +100,26 @@ function LearningController($scope, $window) {
     $scope.rows = [];
 
     // Construct the game board.
-    var rowMin = 3;
+    var rowMin = 10;
     for (var i = 1; i <= NUM_ROWS; ++i) {
       var row = [];
-      var rowMax = (i == 1) ? 32 : (256 / NUM_ROWS) * i;
       for (var j = 1; j <= NUM_COLS; ++j) {
         // Compute the result of adding the two factors.
-        var bigNum = Math.min(255, rowMin + (rowMax - rowMin * Math.random()));
+        var bigNum = Math.min(255, rowMin + (i * j * Math.random()));
         bigNum = Math.max(2, Math.floor(bigNum));
 
         // Devise two factors randomly from the result.
-        var fac1 = rowMax/3;
-        fac1 = Math.floor(fac1 + (Math.random() * fac1));
+        var fac1 = i*j/3;
+        fac1 = Math.floor(fac1 + (Math.random() * 8));
         fac1 = Math.max(j, fac1);
         var fac2 = bigNum - fac1;
 
         var problem = new Problem(fac1, fac2, $scope.operator);
+        problem.userAnswer = problem.answer().toString(16);
         row.push(problem);
       }
       $scope.rows.push(row);
-      rowMin = rowMax;
+      rowMin += 255 / NUM_ROWS;
     }
   };
   // Default to addition.
