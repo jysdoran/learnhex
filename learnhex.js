@@ -16,7 +16,7 @@
  */
 
 /** @const {integer} The number of rows on the board. */
-var NUM_ROWS = 4;
+var NUM_ROWS = 3;
 /** @const {integer} The number of columns on the board. */
 var NUM_COLS = 10;
 
