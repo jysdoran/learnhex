@@ -87,6 +87,12 @@ function LearningController($scope, $window) {
    */
   $scope._intervalId = null;
 
+  /**
+   * @var {boolean} Show the answers (for testing).
+   * @private
+   */
+  $scope._answerKey = false;
+
   /** @var {Array.<Array.<Problem>>} The game board matrix containing the set
    *                                 of Problems. */
   $scope.rows = [];
@@ -122,6 +128,8 @@ function LearningController($scope, $window) {
       }
       return 0;
     });
+    if ($scope._answerKey)
+      console.log(rand);
 
     // Construct the game board.
     var rowMin = 10;
@@ -137,7 +145,8 @@ function LearningController($scope, $window) {
         var fac2 = bigNum - fac1;
 
         var problem = new Problem(fac1, fac2, $scope.operator);
-        problem.userAnswer = problem.answer().toString(16);
+        if ($scope._answerKey)
+          problem.userAnswer = problem.answer().toString(16);
         row.push(problem);
       }
       $scope.rows.push(row);
