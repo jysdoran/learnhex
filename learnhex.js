@@ -92,6 +92,14 @@ function LearningController($scope, $window) {
   $scope.rows = [];
 
   /**
+   * Returns the size of the game board.
+   * @returns {integer}
+   */
+  $scope.boardSize = function() {
+    return NUM_ROWS * NUM_COLS;
+  };
+
+  /**
    * Changes the board type to the one specified by the operator.
    * @param {string} Operator name.
    */
@@ -99,20 +107,39 @@ function LearningController($scope, $window) {
     $scope.operator = Operators[op];
     $scope.rows = [];
 
+    // Generate boardSize() random numbers.
+    var rand = [];
+    var boardSize = $scope.boardSize();
+    var stepSize = 255 / boardSize;
+    console.log("Step size = " + stepSize);
+    for (var i = 1, j = 1; i <= boardSize; ++i, j += stepSize) {
+      rand.push(Math.min(255, Math.floor(8 + (i*stepSize * Math.random()))));
+    }
+    rand.sort(function(a, b) {
+      if (a < b) {
+        return -1;
+      } else if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log('r = ' + rand);
+
     // Construct the game board.
     var rowMin = 10;
-    for (var i = 1; i <= NUM_ROWS; ++i) {
+    for (var i = 0; i < NUM_ROWS; ++i) {
       var row = [];
-      for (var j = 1; j <= NUM_COLS; ++j) {
+      for (var j = 0; j < NUM_COLS; ++j) {
         // Compute the result of adding the two factors.
-        var bigNum = Math.min(255, rowMin + (i * j * Math.random()));
-        bigNum = Math.max(2, Math.floor(bigNum));
+        var bigNum = rand[j + i * NUM_COLS];
 
         // Devise two factors randomly from the result.
-        var fac1 = i*j/3;
+        var fac1 = bigNum/3;
         fac1 = Math.floor(fac1 + (Math.random() * 8));
         fac1 = Math.max(j, fac1);
         var fac2 = bigNum - fac1;
+        if (fac1 + fac2 != bigNum)
+          console.log("FUCK");
 
         var problem = new Problem(fac1, fac2, $scope.operator);
         problem.userAnswer = problem.answer().toString(16);
@@ -158,14 +185,6 @@ function LearningController($scope, $window) {
     var minutes = Math.floor(t / timeInMinutes);
     t -= minutes * timeInMinutes;
     return formatInt2d(hours) + ':' + formatInt2d(minutes) + ':' + formatInt2d(t);
-  };
-
-  /**
-   * Returns the size of the game board.
-   * @returns {integer}
-   */
-  $scope.boardSize = function() {
-    return NUM_ROWS * NUM_COLS;
   };
 
   /**
