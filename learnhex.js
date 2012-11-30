@@ -111,7 +111,6 @@ function LearningController($scope, $window) {
     var rand = [];
     var boardSize = $scope.boardSize();
     var stepSize = 255 / boardSize;
-    console.log("Step size = " + stepSize);
     for (var i = 1, j = 1; i <= boardSize; ++i, j += stepSize) {
       rand.push(Math.min(255, Math.floor(8 + (i*stepSize * Math.random()))));
     }
@@ -123,7 +122,6 @@ function LearningController($scope, $window) {
       }
       return 0;
     });
-    console.log('r = ' + rand);
 
     // Construct the game board.
     var rowMin = 10;
@@ -134,12 +132,9 @@ function LearningController($scope, $window) {
         var bigNum = rand[j + i * NUM_COLS];
 
         // Devise two factors randomly from the result.
-        var fac1 = bigNum/3;
-        fac1 = Math.floor(fac1 + (Math.random() * 8));
-        fac1 = Math.max(j, fac1);
+        var fac1 = bigNum / Math.floor(2 + Math.random() * 6);
+        fac1 = Math.floor(fac1);
         var fac2 = bigNum - fac1;
-        if (fac1 + fac2 != bigNum)
-          console.log("FUCK");
 
         var problem = new Problem(fac1, fac2, $scope.operator);
         problem.userAnswer = problem.answer().toString(16);
